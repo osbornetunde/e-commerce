@@ -31,8 +31,6 @@ function App() {
     };
   }, []);
 
-  console.log("cuurent user", currentUser);
-
   return (
     <div className="App">
       <Header currentUser={currentUser} />
