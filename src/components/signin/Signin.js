@@ -4,7 +4,7 @@ import FormInput from "../formInput/FormInput";
 import CustomButton from "../customButton/CustomButton";
 import { signInWithGoogle } from "../../firebase/firebase";
 
-const Signin = () => {
+const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -41,7 +41,7 @@ const Signin = () => {
           value={password}
           required
           id="password"
-          handleChnage={handleChange}
+          handleChange={handleChange}
           label="password"
         />
         <div className="buttons">
@@ -56,4 +56,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default SignIn;

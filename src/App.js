@@ -5,7 +5,7 @@ import HomePage from "./pages/homepage/HomePage";
 import Shop from "./pages/shop/Shop";
 import Header from "./components/header/Header";
 import AuthenticationPage from "./pages/authenticationPage/AuthenticationPage";
-import { auth } from "./firebase/firebase";
+import { auth, createUserProfileDocument } from "./firebase/firebase";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -13,14 +13,25 @@ function App() {
   const unsubscribeFromAuth = null;
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-      console.log(user);
+    auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        userRef.onSnapshot((snapShot) => {
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data(),
+          });
+        });
+      } else {
+        setCurrentUser(userAuth);
+      }
     });
     return () => {
       unsubscribeFromAuth();
     };
   }, []);
+
+  console.log("cuurent user", currentUser);
 
   return (
     <div className="App">
