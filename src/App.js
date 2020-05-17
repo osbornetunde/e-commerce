@@ -28,11 +28,12 @@ function App({ setCurrentUser, currentUser }) {
         });
       } else {
         setCurrentUser(userAuth);
+        // addCollectionAndItems('collections', collectionsArray.map(({ title, items }) => { title, item }))
       }
+      return () => {
+        unsubscribeFromAuth();
+      };
     });
-    return () => {
-      unsubscribeFromAuth();
-    };
   }, []);
 
   return (
