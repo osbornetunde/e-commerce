@@ -8,32 +8,12 @@ import Shop from "./pages/shop/Shop";
 import Header from "./components/header/Header";
 import AuthenticationPage from "./pages/authenticationPage/AuthenticationPage";
 import CheckoutPage from "./pages/checkout/Checkout";
-
-import { auth, createUserProfileDocument } from "./firebase/firebase";
-import { setCurrentUser } from "./redux/user/userAction";
 import { selectCurrentUser } from "./redux/user/userSelectors";
+import { checkUserSession } from "./redux/user/userAction";
 
-function App({ setCurrentUser, currentUser }) {
-  const unsubscribeFromAuth = null;
-
+function App({ currentUser, checkUserSession }) {
   useEffect(() => {
-    auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-        userRef.onSnapshot((snapShot) => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      } else {
-        setCurrentUser(userAuth);
-        // addCollectionAndItems('collections', collectionsArray.map(({ title, items }) => { title, item }))
-      }
-      return () => {
-        unsubscribeFromAuth();
-      };
-    });
+    checkUserSession();
   }, []);
 
   return (
@@ -61,4 +41,4 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
 });
 
-export default connect(mapStateToProps, { setCurrentUser })(App);
+export default connect(mapStateToProps, { checkUserSession })(App);
