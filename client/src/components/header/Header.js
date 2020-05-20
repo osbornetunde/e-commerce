@@ -1,15 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import { auth } from "./../../firebase/firebase";
-import "./Header.scss";
-import { ReactComponent as Logo } from "../../asset/original.svg";
-import CartIcon from "./../cartIcon/cartIcon";
-import CartDropDown from "./../cartDropdown/CartDropDown";
-import { selectCartHidden } from "./../../redux/cart/cartSelectors";
-import { selectCurrentUser } from "./../../redux/user/userSelectors";
-import { signOutStart } from "../../redux/user/userAction";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import './Header.scss';
+import { ReactComponent as Logo } from '../../asset/original.svg';
+import CartIcon from '../cartIcon/cartIcon';
+import CartDropDown from '../cartDropdown/CartDropDown';
+import { selectCartHidden } from '../../redux/cart/cartSelectors';
+import { selectCurrentUser } from '../../redux/user/userSelectors';
+import { signOutStart } from '../../redux/user/userAction';
 
 const Header = ({ currentUser, cartHidden, signOutStart }) => (
   <div className="header">
